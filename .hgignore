@@ -1,0 +1,15 @@
+syntax: glob
+
+*.bak
+*.cof
+*.err
+*.lst
+*.map
+*.mcs
+*.o
+*.rar
+*.zip
+
+*/Binaries/*
+*/Datasheets/*
+*/Releases/*
