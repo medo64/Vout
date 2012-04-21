@@ -33,6 +33,8 @@ PARTS
   - LED1-LED4                           Measurement selection.
   - LED5                                Power signal.
   - LED6-LED7                           Measurement type selection.
+
+  o TDSR1060
   - LED8-LED10                          7-segment display.
 
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF
