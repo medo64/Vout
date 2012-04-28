@@ -16,48 +16,48 @@ BOARD
 
 PARTS                              
 
-  o C 100nF, X7R (0805)
+  o C 100nF, X7R (0805)                                                         DK:490-4789-1-ND
   - C3                                  Decoupling.
 
-  o C 10uF /16V, tantalum (M3528)
+  o C 10uF /16V, tantalum (M3528)                                               DK:478-3874-1-ND
   - C1 C2                               Voltage regulator.
 
-  o D STPS2L60A (SMA)
+  o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
   - D1                                  Reverse polarity protection.
 
-  o J MSTBVA 2w
+  o J MSTBVA 2w                                                                 DK:277-1150-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
-  o LED Orange 280mcd, 2.5V 25mA (0805)
+  o LED Orange 280mcd, 2.5V 25mA (0805)                                         DK:475-1415-1-ND
   - LED1-LED4                           Measurement selection.
   - LED5                                Power signal.
   - LED6-LED7                           Measurement type selection.
 
-  o TDSR1060
+  o TDSR1060                                                                    NE:39M4877
   - LED8-LED10                          7-segment display.
 
-  o R .1 1%, (2512) - CRA2512-FZ-R100ELF
+  o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
 
-  o R 100 1%, 0.125W (0805)
+  o R 100 1%, 0.125W (0805)                                                     DK:RMCF0805JT100RCT-ND
   - R5-R8                               Current sense monitor scaler.
 
-  o R 10K 1%, 0.125W (0805)
+  o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
   - R9-R12                              High-side voltage divider (11:1 ratio).
 
-  o R 1K 1%, 0.125W (0805)
+  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805JT1K00CT-ND
   - R13-R16                             Low-side voltage divider.
   - R17-R24                             Anode resistor (3.3V, 1.5mA).
   - R25                                 Power indicator (3.3V, 1.5mA).
 
-  o U ZXCT1009, (SOT23)
+  o U ZXCT1009, (SOT23)                                                         DK:ZXCT1009FCT-ND
   - U1-U4                               High-side current sense monitor.
 
-  o U LD1117DT33TR, (DPAK)
+  o U LD1117DT33TR, (DPAK)                                                      DK:497-1236-1-ND
   - U5                                  Voltage regulator.
 
-  o U PIC18F23K20, (SSOP-28)
+  o U PIC18F23K20, (SSOP-28)                                                    DK:PIC18F23K20-I/SS-ND
   - U6                                  Micro-controller.
 
 
