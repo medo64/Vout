@@ -49,6 +49,9 @@ PARTS
   o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
   - R9-R12                              High-side voltage divider (11:1 ratio).
 
+  o S Switch, tactile SPST                                                      DK:679-2428-ND
+    S1 S2
+
   o U ZXCT1009, (SOT23)                                                         DK:ZXCT1009FCT-ND
   - U1-U4                               High-side current sense monitor.
 
