@@ -32,10 +32,10 @@ unsigned int getAdc(unsigned char channel) {
 
 float getVoltage(unsigned char channel) {
     float reading = (float)getAdc(channel);
-    return reading * 16.0 / 1024.0 * 3.3; //16:1 ratio
+    return reading * 3.3 / 1024.0 * 16.0; //16:1 ratio
 }
 
 float getCurrent(unsigned char channel) {
     float reading = (float)getAdc(channel);
-    return reading * 10.0 / 1024.0 * 3.3; //100mV is 1A
+    return reading * 3.3 / 1024.0 * 1.0; //1V is 1A (3V max)
 }

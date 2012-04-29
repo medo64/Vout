@@ -4,7 +4,7 @@
 RATINGS
 
   o Input voltage ..........: 5-12 V
-  o Input current (max) ....: 2 A
+  o Input current (max) ....: 3 A
   o Current usage (max) ....: 120 mA
   o Current usage (typical) : 30 mA
 
@@ -40,16 +40,14 @@ PARTS
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
 
-  o R 100 1%, 0.125W (0805)                                                     DK:RMCF0805JT100RCT-ND
-  - R5-R8                               Current sense monitor scaler.
-
-  o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
-  - R9-R12                              High-side voltage divider (11:1 ratio).
-
   o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805JT1K00CT-ND
+  - R5-R8                               Current sense monitor scaler.
   - R13-R16                             Low-side voltage divider.
   - R17-R24                             Anode resistor (3.3V, 1.5mA).
   - R25                                 Power indicator (3.3V, 1.5mA).
+
+  o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
+  - R9-R12                              High-side voltage divider (11:1 ratio).
 
   o U ZXCT1009, (SOT23)                                                         DK:ZXCT1009FCT-ND
   - U1-U4                               High-side current sense monitor.
@@ -61,6 +59,46 @@ PARTS
   - U6                                  Micro-controller.
 
 
-EXPLANATIONS
+SWITCHES
 
 Switches are directly connected to PIC and internal pull-up is configured.
+
+
+CURRENT SENSING
+
+Vsense was selected in order to be 300 mV at 3 A.
+  Rsense = 300 mV / 3 A = 0.1 Ohm
+
+Rout is selected in order to Vout to be as high as possible at far end of scale:
+  Vout = 0.01 * Vsense * Rout
+  Rout = Vout / (Vsense * 0.01)
+  Rout = 3.2 V / (300 mV * 0.01)
+  Rout = 1066 Ohm = 1000 Ohm
+
+In this case maximum voltage on output should be:
+  Vout = 0.01 * Vsense * Rout
+  Vout = 0.01 * 300 mV * 1000 Ohm
+  Vout = 3 V
+
+
+ADC
+
+10-bit ADC gives us resolution:
+  ADCmin = 1 / 1024 * Vref
+  ADCmin = 1 / 1024 * 3.3
+  ADCmin = 0.003 V
+
+For voltage input that uses 1K and 10K resistors in voltage divider we need to
+calculate in ration of 11:1:
+  Vmin = ADCmin * 11
+  Vmin = 0.035 V
+
+In case of current we 1 V representing 1 A of input current so there is no
+further adjustments:
+  Imin = ADCmin
+  Imin = 0.003 A
+
+Of course, this leaves out other effects of ADC that have influence on
+precision and precision of other components (e.g. voltage divider or current
+monitor error). You can view this as absolutely best case scenario. Real life
+figures are bound to be a bit worse.
