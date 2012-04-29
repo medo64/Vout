@@ -29,12 +29,12 @@ PARTS
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
-  o LED Orange 280mcd, 2.5V 25mA (0805)                                         DK:475-1415-1-ND
+  o LED (0805)                                                                  DK:475-1415-1-ND
   - LED1-LED4                           Measurement selection.
   - LED5                                Power signal.
   - LED6-LED7                           Measurement type selection.
 
-  o TDSR1060                                                                    NE:39M4877
+  o LED 7-seg 1mA, 0.5" common anode                                            DK:679-2428-ND
   - LED8-LED10                          7-segment display.
 
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
