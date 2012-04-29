@@ -117,11 +117,18 @@ float measure() {
 
 void writeValue000(int value, int dotIndex) {
     char tempDisplay[3];
-    tempDisplay[0] = getSegments((char)(value / 100));
-    tempDisplay[1] = getSegments((char)((value / 10) % 10));
-    tempDisplay[2] = getSegments((char)(value % 10));
+    char d0 = (char)(value / 100);
+    char d1 = (char)((value / 10) % 10);
+    char d2 = (char)(value % 10);
+    tempDisplay[0] = getSegments(d0);
+    tempDisplay[1] = getSegments(d1);
+    tempDisplay[2] = getSegments(d2);
     if (dotIndex < 2) {
-        tempDisplay[dotIndex] = tempDisplay[dotIndex] | 0b10000000;
+        if ((dotIndex == 0) && (d0 == 0)) {
+            tempDisplay[0] = 0b10000000;
+        } else {
+            tempDisplay[dotIndex] = tempDisplay[dotIndex] | 0b10000000;
+        }
     }
     Display[0] = tempDisplay[0];
     Display[1] = tempDisplay[1];
