@@ -62,6 +62,17 @@ PARTS
   - U6                                  Micro-controller.
 
 
+
+CASE
+
+If case is desired, board should fit perfectly within Phoenix Contact module:
+  o PhoenixContact 2970442 (UMK-SE 11,25-1)                                     DK:2970442-ND
+  o PhoenixContact 2970028 (UMK-BE 22,5)                                        DK:2970028-ND
+
+Additionaly, if DIN mounting is needed, there is an option:
+  o PhoenixContact 2970031 (UMK-FE)                                             DK:2970031-ND
+
+
 SWITCHES
 
 Switches are directly connected to PIC and internal pull-up is configured.
@@ -101,7 +112,7 @@ further adjustments:
   Imin = ADCmin
   Imin = 0.003 A
 
-Of course, this leaves out other effects of ADC that have influence on
-precision and precision of other components (e.g. voltage divider or current
-monitor error). You can view this as absolutely best case scenario. Real life
-figures are bound to be a bit worse.
+Of course, this leaves out other effects of ADC that have influence on precision
+and precision of other components (e.g. voltage divider or current monitor
+error). You can view this as absolutely best case scenario. Real life figures
+are bound to be a bit worse.
