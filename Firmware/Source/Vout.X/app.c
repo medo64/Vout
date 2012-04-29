@@ -29,8 +29,8 @@ void main(void) {
         writeValue(value);
         for (int i=0; i<10; i++) {
             float newValue = measure();
-            value = (value + (newValue - value) * 0.1); //to smooth it a little
-            value = (int)(value * 250.0) / 250.0; //rounding
+            value = (value + (newValue - value) * 0.13); //to smooth it a little
+            value = (int)(value * 1000.0) / 1000.0; //rounding
             if (SWITCH_NEXT == 0) { switchNextCounter += 1; } else { switchNextCounter = 0; }
             if (SWITCH_UNIT == 0) { switchUnitCounter += 1; } else { switchUnitCounter = 0; }
             if (switchNextCounter > 25) {
