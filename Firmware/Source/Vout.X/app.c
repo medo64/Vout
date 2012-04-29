@@ -11,19 +11,21 @@ volatile unsigned char DisplayIndex = 0;
 unsigned char MeasureIndex = 0;
 bit MeasureUnit = 0;
 
+char SwitchCounterNext = 0;
+char SwitchCounterUnit = 0;
+
 
 float measure(void);
-void showMeasureStatus(void);
-void writeValue(float value);
+bit switchNext(void);
+bit switchUnit(void);
 void splash(void);
+void writeValue(float value);
 
 
 void main(void) {
     init();
     splash();
 
-    char switchNextCounter = 0;
-    char switchUnitCounter = 0;
     float value = measure();
     while (1) {
         writeValue(value);
@@ -31,18 +33,7 @@ void main(void) {
             float newValue = measure();
             value = (value + (newValue - value) * 0.13); //to smooth it a little
             value = (int)(value * 1000.0) / 1000.0; //rounding
-            if (SWITCH_NEXT == 0) { switchNextCounter += 1; } else { switchNextCounter = 0; }
-            if (SWITCH_UNIT == 0) { switchUnitCounter += 1; } else { switchUnitCounter = 0; }
-            if (switchNextCounter > 25) {
-                switchNextCounter = 0;
-                MeasureIndex = (MeasureIndex + 1) % 4;
-                showMeasureStatus();
-                value = measure();
-                break;
-            } else if (switchUnitCounter > 25) {
-                switchUnitCounter = 0;
-                MeasureUnit = !MeasureUnit;
-                showMeasureStatus();
+            if (switchNext() || switchUnit()) {
                 value = measure();
                 break;
             }
@@ -72,7 +63,7 @@ void interrupt isr(void) {
     }
 }
 
-void showMeasureStatus() {
+void switchDone() {
     if (MeasureUnit == 0) {
         Display[0] = 0b00111110;
     } else {
@@ -80,7 +71,38 @@ void showMeasureStatus() {
     }
     Display[1] = 0b00000000;
     Display[2] = getSegments(MeasureIndex);
-    __delay_ms(100); __delay_ms(100); __delay_ms(100); __delay_ms(100); __delay_ms(100);
+    while ((SWITCH_NEXT == 0) || (SWITCH_UNIT == 0)); //wait for key press to stop
+    SwitchCounterNext = 0;
+    SwitchCounterUnit = 0;
+}
+
+
+bit switchNext() {
+    if (SWITCH_NEXT == 0) {
+        SwitchCounterNext += 1;
+        if (SwitchCounterNext > 25) {
+            MeasureIndex = (MeasureIndex + 1) % 4;
+            switchDone();
+            return 1;
+        }
+    } else {
+        SwitchCounterNext = 0;
+    }
+    return 0;
+}
+
+bit switchUnit() {
+    if (SWITCH_UNIT == 0) {
+        SwitchCounterUnit += 1;
+        if (SwitchCounterUnit > 25) {
+            MeasureUnit = !MeasureUnit;
+            switchDone();
+            return 1;
+        }
+    } else {
+        SwitchCounterUnit = 0;
+    }
+    return 0;
 }
 
 float measure() {
