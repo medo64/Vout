@@ -31,8 +31,8 @@ PARTS
 
   o LED (0805)                                                                  DK:475-1415-1-ND
   - LED1-LED4                           Measurement selection.
-  - LED5                                Power signal.
-  - LED6-LED7                           Measurement type selection.
+  - LED5-LED6                           Measurement type selection.
+  - LED7                                Power signal.
 
   o LED 7-seg 1mA, 0.5" common anode                                            DK:679-2428-ND
   - LED8-LED10                          7-segment display.
@@ -42,12 +42,12 @@ PARTS
 
   o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805JT1K00CT-ND
   - R5-R8                               Current sense monitor scaler.
-  - R13-R16                             Low-side voltage divider.
-  - R17-R24                             Anode resistor (3.3V, 1.5mA).
-  - R25                                 Power indicator (3.3V, 1.5mA).
+  - R9-R12                              Low-side voltage divider.
+  - R13-R20                             Anode resistor (3.3V, 1.5mA).
+  - R21                                 Power indicator (3.3V, 1.5mA).
 
   o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
-  - R9-R12                              High-side voltage divider (11:1 ratio).
+  - R22-R25                             High-side voltage divider (11:1 ratio).
 
   o S Switch, tactile SPST                                                      DK:679-2428-ND
     S1 S2
