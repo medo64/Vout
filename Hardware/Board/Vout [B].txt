@@ -34,7 +34,7 @@ PARTS
   - LED5-LED6                           Measurement type selection.
   - LED7                                Power signal.
 
-  o LED 7-seg 1mA, 0.5" common anode                                            DK:679-2428-ND
+  o LED 7-seg 1mA, 0.5" common anode                                            DK:LTS-4802BJR-H1
   - LED8-LED10                          7-segment display.
 
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
