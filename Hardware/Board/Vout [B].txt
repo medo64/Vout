@@ -25,6 +25,9 @@ PARTS
   o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
   - D1                                  Reverse polarity protection.
 
+  o DS 7-seg 1mA, 0.5" common anode                                             DK:LTS-4802BJR-H1
+  - DS1-DS3                             7-segment display.
+
   o J MSTBVA 2w                                                                 DK:277-1150-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
@@ -33,9 +36,6 @@ PARTS
   - LED1-LED4                           Measurement selection.
   - LED5-LED6                           Measurement type selection.
   - LED7                                Power signal.
-
-  o LED 7-seg 1mA, 0.5" common anode                                            DK:LTS-4802BJR-H1
-  - LED8-LED10                          7-segment display.
 
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
