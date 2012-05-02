@@ -8,8 +8,8 @@
 volatile unsigned char Display[4] = { 0, 0, 0, 0 };
 volatile unsigned char DisplayIndex = 0;
 
-unsigned char MeasureIndex = 0;
-bit MeasureUnit = 0;
+char MeasureIndex = 0;
+char MeasureUnit = 0;
 
 char SwitchCounterNext = 0;
 char SwitchCounterUnit = 0;
@@ -64,10 +64,11 @@ void interrupt isr(void) {
 }
 
 void switchDone() {
-    if (MeasureUnit == 0) {
-        Display[0] = 0b00111110;
-    } else {
-        Display[0] = 0b00110000;
+    switch (MeasureUnit) {
+        case 0: Display[0] = 0b00111110; break;
+        case 1: Display[0] = 0b00110000; break;
+        case 2: Display[0] = 0b01110011; break;
+        default: Display[0] = 0b11111111; break;
     }
     Display[1] = 0b00000000;
     Display[2] = getSegments(MeasureIndex);
@@ -95,7 +96,7 @@ bit switchUnit() {
     if (SWITCH_UNIT == 0) {
         SwitchCounterUnit += 1;
         if (SwitchCounterUnit > 25) {
-            MeasureUnit = !MeasureUnit;
+            MeasureUnit = (MeasureUnit + 1) % 3;
             switchDone();
             return 1;
         }
@@ -107,12 +108,32 @@ bit switchUnit() {
 
 float measure() {
     switch (MeasureIndex) {
-        case 0: return (MeasureUnit == 0) ? getVoltage(ADC_V1) : getCurrent(ADC_I1);
-        case 1: return (MeasureUnit == 0) ? getVoltage(ADC_V2) : getCurrent(ADC_I2);
-        case 2: return (MeasureUnit == 0) ? getVoltage(ADC_V3) : getCurrent(ADC_I3);
-        case 3: return (MeasureUnit == 0) ? getVoltage(ADC_V4) : getCurrent(ADC_I4);
-        default: return 1000000;
+        case 0:
+            switch (MeasureUnit) {
+                case 0: return getVoltage(ADC_V1);
+                case 1: return getCurrent(ADC_I1);
+                case 2: return getVoltage(ADC_V1) * getCurrent(ADC_I1);
+            }
+        case 1:
+            switch (MeasureUnit) {
+                case 0: return getVoltage(ADC_V2);
+                case 1: return getCurrent(ADC_I2);
+                case 2: return getVoltage(ADC_V2) * getCurrent(ADC_I2);
+            }
+        case 2:
+            switch (MeasureUnit) {
+                case 0: return getVoltage(ADC_V3);
+                case 1: return getCurrent(ADC_I3);
+                case 2: return getVoltage(ADC_V3) * getCurrent(ADC_I3);
+            }
+        case 3:
+            switch (MeasureUnit) {
+                case 0: return getVoltage(ADC_V4);
+                case 1: return getCurrent(ADC_I4);
+                case 2: return getVoltage(ADC_V4) * getCurrent(ADC_I4);
+            }
     }
+    return 1000000;
 }
 
 void writeValue000(int value, int dotIndex) {
