@@ -31,7 +31,7 @@ void main(void) {
         writeValue(value);
         for (int i=0; i<10; i++) {
             float newValue = measure();
-            value = (value + (newValue - value) * 0.13); //to smooth it a little
+            value = value + (newValue - value) * 0.23; //to smooth it a little
             value = (int)(value * 1000.0) / 1000.0; //rounding
             if (switchNext() || switchUnit()) {
                 value = measure();
@@ -44,6 +44,7 @@ void main(void) {
 void interrupt isr(void) {
     if(TMR0IE && TMR0IF) { //if enabled and triggered
         LED_C1 = LED_C2 = LED_C3 = LED_C4 = 1;
+        LED_A1 = LED_A2 = LED_A3 = LED_A4 = LED_A5 = LED_A6 = LED_A7 = LED_A8 = 1;
         LED_A1 = (Display[DisplayIndex] & 0x01) ? 1 : 0;
         LED_A2 = (Display[DisplayIndex] & 0x02) ? 1 : 0;
         LED_A3 = (Display[DisplayIndex] & 0x04) ? 1 : 0;
