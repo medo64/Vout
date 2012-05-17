@@ -20,6 +20,10 @@ unsigned char getSegments(char number) {
     }
 }
 
+float round(float value) {
+    return (int)(value * 1000) / 1000.0;
+}
+
 unsigned int getAdc(unsigned char channel) {
     ADCON0 = (channel << 2); //Analog Channel Select bits
     ADON = 1; //ADC is enabled
@@ -32,10 +36,10 @@ unsigned int getAdc(unsigned char channel) {
 
 float getVoltage(unsigned char channel) {
     float reading = (float)getAdc(channel);
-    return reading * 3.3 / 1024.0 * 16.0; //16:1 ratio
+    return round(reading * 3.3 / 1024.0 * 11.0); //11:1 ratio (10K:1K)
 }
 
 float getCurrent(unsigned char channel) {
     float reading = (float)getAdc(channel);
-    return reading * 3.3 / 1024.0 * 1.0; //1V is 1A (3V max)
+    return round(reading * 3.3 / 1024.0 * 1.0); //1V is 1A (3V max)
 }
