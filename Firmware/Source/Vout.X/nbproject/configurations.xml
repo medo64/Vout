@@ -94,7 +94,7 @@
         <property key="opt-xc8-opt_set" value="_custom"/>
       </XC8-config-gcc>
       <XC8-config-global>
-        <property key="opt-xc8-global-double" value="24"/>
+        <property key="opt-xc8-global-double" value="32"/>
         <property key="opt-xc8-global-external_memory" value="wordwrite"/>
         <property key="opt-xc8-global-float" value="24"/>
         <property key="opt-xc8-global-ram_ranges" value=""/>
