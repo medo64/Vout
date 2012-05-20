@@ -11,8 +11,10 @@ volatile unsigned char DisplayIndex = 0;
 char MeasureIndex = 0;
 char MeasureUnit = 0;
 
-char SwitchCounterNext = 0;
-char SwitchCounterUnit = 0;
+#define SWITCH_COUNTER_MAX     8;
+#define SWITCH_COUNTER_MAX_MAX 24;
+char SwitchCounterNext = SWITCH_COUNTER_MAX;
+char SwitchCounterUnit = SWITCH_COUNTER_MAX;
 
 
 float measure(void);
@@ -80,35 +82,35 @@ void switchDone() {
         case 3: Display[3] ^= 0b11110000; break;
     }
 
-    SwitchCounterNext = 0;
-    SwitchCounterUnit = 0;
+    SwitchCounterNext = SWITCH_COUNTER_MAX_MAX;
+    SwitchCounterUnit = SWITCH_COUNTER_MAX_MAX;
 }
 
 
 bit switchNext() {
     if (SWITCH_NEXT == 0) {
-        SwitchCounterNext += 1;
-        if (SwitchCounterNext > 10) {
+        SwitchCounterNext -= 1;
+        if (SwitchCounterNext == 0) {
             MeasureIndex = (MeasureIndex + 1) % 4;
             switchDone();
             return 1;
         }
     } else {
-        SwitchCounterNext = 0;
+        SwitchCounterNext = SWITCH_COUNTER_MAX;
     }
     return 0;
 }
 
 bit switchUnit() {
     if (SWITCH_UNIT == 0) {
-        SwitchCounterUnit += 1;
-        if (SwitchCounterUnit > 10) {
+        SwitchCounterUnit -= 1;
+        if (SwitchCounterUnit == 0) {
             MeasureUnit = (MeasureUnit + 1) % 3;
             switchDone();
             return 1;
         }
     } else {
-        SwitchCounterUnit = 0;
+        SwitchCounterUnit = SWITCH_COUNTER_MAX;
     }
     return 0;
 }
