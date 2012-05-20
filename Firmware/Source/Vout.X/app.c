@@ -4,24 +4,21 @@
 #include "init.h"
 #include "support.h"
 
+#define SWITCH_COUNTER_MAX     48;
+#define SWITCH_COUNTER_MAX_MAX 128;
 
-volatile unsigned char Display[4] = { 0, 0, 0, 0 };
-volatile unsigned char DisplayIndex = 0;
+volatile char Display[4] = { 0, 0, 0, 0 };
+volatile char DisplayIndex = 0;
+volatile char SwitchCounterNext = SWITCH_COUNTER_MAX;
+volatile char SwitchCounterUnit = SWITCH_COUNTER_MAX;
 
 char MeasureIndex = 0;
 char MeasureUnit = 0;
 
-#define SWITCH_COUNTER_MAX     8;
-#define SWITCH_COUNTER_MAX_MAX 24;
-char SwitchCounterNext = SWITCH_COUNTER_MAX;
-char SwitchCounterUnit = SWITCH_COUNTER_MAX;
-
-
 float measure(void);
-bit switchNext(void);
-bit switchUnit(void);
 void splash(void);
-void writeValue(float value);
+bit switchCheck(void);
+void displayValue(float value, char measureIndex, char measureUnit);
 
 
 void main(void) {
@@ -30,12 +27,12 @@ void main(void) {
 
     float value = measure();
     while (1) {
-        writeValue(value);
+        displayValue(value, MeasureIndex, MeasureUnit);
         for (int i=0; i<10; i++) {
             float newValue = measure();
             value = value + (newValue - value) * 0.23; //to smooth it a little
             value = round(value);
-            if (switchNext() || switchUnit()) {
+            if (switchCheck()) {
                 value = measure();
                 break;
             }
@@ -63,55 +60,35 @@ void interrupt isr(void) {
             case 3: LED_A4 = 1; break;
         }
         DisplayIndex = (DisplayIndex + 1) % 4;
+
+        if (SWITCH_NEXT == 0) {
+            if (SwitchCounterNext > 0) { SwitchCounterNext -= 1; }
+        } else {
+            SwitchCounterNext = SWITCH_COUNTER_MAX;
+        }
+        if (SWITCH_UNIT == 0) {
+            if (SwitchCounterUnit > 0) { SwitchCounterUnit -= 1; }
+        } else {
+            SwitchCounterUnit = SWITCH_COUNTER_MAX;
+        }
+
         TMR0IF = 0; //clear flag
     }
 }
 
-void switchDone() {
-    switch (MeasureIndex) {
-        case 0: Display[3] = 0b00000001; break;
-        case 1: Display[3] = 0b00000010; break;
-        case 2: Display[3] = 0b00000100; break;
-        case 3: Display[3] = 0b00001000; break;
-        default: Display[3] = 0b00001111; break;
-    }
-    switch (MeasureUnit) {
-        case 0: Display[3] ^= 0b01000000; break;
-        case 1: Display[3] ^= 0b10000000; break;
-        case 2: Display[3] ^= 0b11000000; break;
-        case 3: Display[3] ^= 0b11110000; break;
+bit switchCheck() {
+    if (SwitchCounterNext == 0) {
+        MeasureIndex = (MeasureIndex + 1) % 4;
+        SwitchCounterNext = SWITCH_COUNTER_MAX_MAX;
+        return 1;
     }
 
-    SwitchCounterNext = SWITCH_COUNTER_MAX_MAX;
-    SwitchCounterUnit = SWITCH_COUNTER_MAX_MAX;
-}
-
-
-bit switchNext() {
-    if (SWITCH_NEXT == 0) {
-        SwitchCounterNext -= 1;
-        if (SwitchCounterNext == 0) {
-            MeasureIndex = (MeasureIndex + 1) % 4;
-            switchDone();
-            return 1;
-        }
-    } else {
-        SwitchCounterNext = SWITCH_COUNTER_MAX;
+    if (SwitchCounterUnit == 0) {
+        MeasureUnit = (MeasureUnit + 1) % 3;
+        SwitchCounterUnit = SWITCH_COUNTER_MAX_MAX;
+        return 1;
     }
-    return 0;
-}
 
-bit switchUnit() {
-    if (SWITCH_UNIT == 0) {
-        SwitchCounterUnit -= 1;
-        if (SwitchCounterUnit == 0) {
-            MeasureUnit = (MeasureUnit + 1) % 3;
-            switchDone();
-            return 1;
-        }
-    } else {
-        SwitchCounterUnit = SWITCH_COUNTER_MAX;
-    }
     return 0;
 }
 
@@ -145,7 +122,7 @@ float measure() {
     return 1000000;
 }
 
-void writeValue000(int value, int dotIndex) {
+void displayValue000(int value, int dotIndex) {
     char tempDisplay[3];
     char d0 = (char)(value / 100);
     char d1 = (char)((value / 10) % 10);
@@ -165,22 +142,35 @@ void writeValue000(int value, int dotIndex) {
     Display[2] = tempDisplay[2];
 }
 
-void writeValue(float value) {
+void displayValue(float value, char measureIndex, char measureUnit) {
     if (value > 999) {
         Display[0] = 0b00111111;
         Display[1] = 0b00011100;
         Display[2] = 0b00000000;
     } else {
         if (value < 10) {
-            writeValue000((int)(value * 100), 0);
+            displayValue000((int)(value * 100), 0);
         } else if (value < 100) {
-            writeValue000((int)(value * 10), 1);
+            displayValue000((int)(value * 10), 1);
         } else {
-            writeValue000((int)value, 2);
+            displayValue000((int)value, 2);
         }
     }
-}
 
+    switch (measureIndex) {
+        case 0: Display[3] = 0b00000001; break;
+        case 1: Display[3] = 0b00000010; break;
+        case 2: Display[3] = 0b00000100; break;
+        case 3: Display[3] = 0b00001000; break;
+        default: Display[3] = 0b00001111; break;
+    }
+    switch (measureUnit) {
+        case 0: Display[3] ^= 0b01000000; break;
+        case 1: Display[3] ^= 0b10000000; break;
+        case 2: Display[3] ^= 0b11000000; break;
+        case 3: Display[3] ^= 0b11110000; break;
+    }
+}
 
 void splash(void) {
     Display[0] = 0b11111111; Display[1] = 0b11111111; Display[2] = 0b11111111; Display[3] = 0b11111111;
