@@ -13,8 +13,8 @@
 #define LED_C7 LATC1
 #define LED_C8 LATC0
 
-#define SWITCH_NEXT PORTBbits.RB7
-#define SWITCH_UNIT PORTBbits.RB6
+#define BUTTON_NEXT PORTBbits.RB7
+#define BUTTON_UNIT PORTBbits.RB6
 
 #define ADC_V1 12
 #define ADC_V2  8
@@ -42,8 +42,8 @@ void init(void) {
     LATB   = 0;
     LATC   = 0;
 
-    //pull-up for switches
-    RBPU = 0;   //PORTB pull-ups are enabled provided that the pin is an input and the corresponding WPUB bit is set.
+    //pull-up for buttons
+    RBPU = 0;            //PORTB pull-ups are enabled provided that the pin is an input and the corresponding WPUB bit is set.
     WPUB = 0b11000000;   //RB6, RB7
 
     //ADC

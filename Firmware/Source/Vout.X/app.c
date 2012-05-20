@@ -4,20 +4,20 @@
 #include "init.h"
 #include "support.h"
 
-#define SWITCH_COUNTER_MAX     48;
-#define SWITCH_COUNTER_MAX_MAX 128;
+#define BUTTON_COUNTER_MAX     48;
+#define BUTTON_COUNTER_MAX_MAX 128;
 
 volatile char Display[4] = { 0, 0, 0, 0 };
 volatile char DisplayIndex = 0;
-volatile char SwitchCounterNext = SWITCH_COUNTER_MAX;
-volatile char SwitchCounterUnit = SWITCH_COUNTER_MAX;
+volatile char ButtonCounterNext = BUTTON_COUNTER_MAX;
+volatile char ButtonCounterUnit = BUTTON_COUNTER_MAX;
 
 char MeasureIndex = 0;
 char MeasureUnit = 0;
 
 float measure(void);
 void splash(void);
-bit switchCheck(void);
+bit buttonCheck(void);
 void displayValue(float value, char measureIndex, char measureUnit);
 
 
@@ -32,7 +32,7 @@ void main(void) {
             float newValue = measure();
             value = value + (newValue - value) * 0.23; //to smooth it a little
             value = round(value);
-            if (switchCheck()) {
+            if (buttonCheck()) {
                 value = measure();
                 break;
             }
@@ -61,31 +61,31 @@ void interrupt isr(void) {
         }
         DisplayIndex = (DisplayIndex + 1) % 4;
 
-        if (SWITCH_NEXT == 0) {
-            if (SwitchCounterNext > 0) { SwitchCounterNext -= 1; }
+        if (BUTTON_NEXT == 0) {
+            if (ButtonCounterNext > 0) { ButtonCounterNext -= 1; }
         } else {
-            SwitchCounterNext = SWITCH_COUNTER_MAX;
+            ButtonCounterNext = BUTTON_COUNTER_MAX;
         }
-        if (SWITCH_UNIT == 0) {
-            if (SwitchCounterUnit > 0) { SwitchCounterUnit -= 1; }
+        if (BUTTON_UNIT == 0) {
+            if (ButtonCounterUnit > 0) { ButtonCounterUnit -= 1; }
         } else {
-            SwitchCounterUnit = SWITCH_COUNTER_MAX;
+            ButtonCounterUnit = BUTTON_COUNTER_MAX;
         }
 
         TMR0IF = 0; //clear flag
     }
 }
 
-bit switchCheck() {
-    if (SwitchCounterNext == 0) {
+bit buttonCheck() {
+    if (ButtonCounterNext == 0) {
         MeasureIndex = (MeasureIndex + 1) % 4;
-        SwitchCounterNext = SWITCH_COUNTER_MAX_MAX;
+        ButtonCounterNext = BUTTON_COUNTER_MAX_MAX;
         return 1;
     }
 
-    if (SwitchCounterUnit == 0) {
+    if (ButtonCounterUnit == 0) {
         MeasureUnit = (MeasureUnit + 1) % 3;
-        SwitchCounterUnit = SWITCH_COUNTER_MAX_MAX;
+        ButtonCounterUnit = BUTTON_COUNTER_MAX_MAX;
         return 1;
     }
 
@@ -158,17 +158,17 @@ void displayValue(float value, char measureIndex, char measureUnit) {
     }
 
     switch (measureIndex) {
-        case 0: Display[3] = 0b00000001; break;
-        case 1: Display[3] = 0b00000010; break;
-        case 2: Display[3] = 0b00000100; break;
-        case 3: Display[3] = 0b00001000; break;
+        case 0:  Display[3] = 0b00000001; break;
+        case 1:  Display[3] = 0b00000010; break;
+        case 2:  Display[3] = 0b00000100; break;
+        case 3:  Display[3] = 0b00001000; break;
         default: Display[3] = 0b00001111; break;
     }
     switch (measureUnit) {
-        case 0: Display[3] ^= 0b01000000; break;
-        case 1: Display[3] ^= 0b10000000; break;
-        case 2: Display[3] ^= 0b11000000; break;
-        case 3: Display[3] ^= 0b11110000; break;
+        case 0:  Display[3] ^= 0b01000000; break;
+        case 1:  Display[3] ^= 0b10000000; break;
+        case 2:  Display[3] ^= 0b11000000; break;
+        default: Display[3] ^= 0b11110000; break;
     }
 }
 
