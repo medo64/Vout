@@ -3,10 +3,9 @@
 
 RATINGS
 
-  o Input voltage ..........: 5-12 V
-  o Input current (max) ....: 3 A
-  o Current usage (max) ....: 120 mA
-  o Current usage (typical) : 30 mA
+  o Voltage .................: 5-12 V
+  o Current .................: 3 A
+  o Logic board current (max): 20 mA
 
 
 BOARD
@@ -28,22 +27,22 @@ PARTS
   o DS 7-seg 1mA, 0.5" common anode                                             MO:TDSR1050
   - DS1-DS3                             7-segment display.
 
-  o J MSTBVA 2w                                                                 DK:277-1150-ND
+  o J MSTBVA 2,5/ 2-G-5,08                                                      DK:277-1150-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
   o LED (0805)                                                                  DK:475-1415-1-ND
-  - LED1-LED4                           Measurement selection.
+  - LED1-LED4                           Measurement input selection.
   - LED5-LED6                           Measurement type selection.
   - LED7                                Power signal.
 
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
 
-  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805JT1K00CT-ND
+  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805FT10K0CT-ND
   - R5-R8                               Current sense monitor scaler.
   - R9-R12                              Low-side voltage divider.
-  - R13-R20                             Anode resistor (3.3V, 1.5mA).
+  - R13-R20                             Cathode resistor (3.3V, 1.5mA).
   - R21                                 Power indicator (3.3V, 1.5mA).
 
   o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
@@ -73,9 +72,33 @@ Additionaly, if DIN mounting is needed, there is an option:
   o PhoenixContact 2970031 (UMK-FE)                                             DK:2970031-ND
 
 
-SWITCHES
+CONNECTORS
 
-Switches are directly connected to PIC and internal pull-up is configured.
+Input and output use Phoenix MSTBVA 2,5/ 2-G-5,08 board connector. For suitable
+plug check it's datasheet. I personaly like MSTB 2,5/ 2-ST-5,08.
+
+These connectors use standard 0.2" spacing. If one desires, almost any connector
+can be used here.
+
+
+BUTTONS
+
+Buttons are directly connected to PIC and internal pull-up is configured.
+
+
+REVERSE DIODE
+
+Diode will protect circuit from temporary voltage reversal. Most common example
+would be mixing up positive and ground wire.
+
+This is only intended as short-term protection for voltage regulator and
+microcontroller. There is no protection for outputs. Reverse voltage state
+lasting more than few seconds might damage device regardless.
+
+If unsure of input voltage polarity, one can connect wires either way and watch
+for 3.3V LED to light up (should be instantaneous). If 3.3V does not light up
+disconnect input immediately and swap the wires. If 3.3V LED lights up, polarity
+is correct and outputs can be connected at this time. 
 
 
 CURRENT SENSING
@@ -97,22 +120,59 @@ In this case maximum voltage on output should be:
 
 ADC
 
+Reference voltage for ADC is taken from Vdd (3.3 V).
+
 10-bit ADC gives us resolution:
-  ADCmin = 1 / 1024 * Vref
-  ADCmin = 1 / 1024 * 3.3
-  ADCmin = 0.003 V
+  ADCres = 1 / 1024 * Vref
+  ADCres = 1 / 1024 * 3.3
+  ADCres = 0.003 V
 
 For voltage input that uses 1K and 10K resistors in voltage divider we need to
 calculate in ration of 11:1:
-  Vmin = ADCmin * 11
-  Vmin = 0.035 V
+  Vres = ADCres * 11
+  Vres = 0.035 V
 
 In case of current we 1 V representing 1 A of input current so there is no
 further adjustments:
-  Imin = ADCmin
-  Imin = 0.003 A
+  Ires = ADCres
+  Ires = 0.003 A
 
 Of course, this leaves out other effects of ADC that have influence on precision
-and precision of other components (e.g. voltage divider or current monitor
-error). You can view this as absolutely best case scenario. Real life figures
-are bound to be a bit worse.
+and precision of other components (e.g. voltage divider, current monitor error
+or even voltage regulator precission). You can view this as absolutely best case
+scenario. Real life figures are bound to be a bit worse.
+
+
+COMPONENT SELECTION
+
+Components selection was driven mostly by my personal component storage. If I
+use some component for other projects and it has acceptable cost, I would use
+it. Best example of this would be voltage regulator which is overkill for this
+purpose. But it is something that I used in other project and I always have one
+in my component bin.
+
+Number of different resistors was kept to a minimum. Therefore same resistor
+type is used for both LEDs and voltage dividers. Since voltage divider resistor
+should be of known value 1% part was used.
+
+LEDs (R13-R21) might use higher tolerance part or they can even use 680 Ohm part
+if higher intensity is required. Do notice that both anode and cathode are
+connected to microcontroller output pin. That means that highest current
+required at any time should be restriced to 25mA (PIC limit). Common anode pin
+will have at most 8 LEDs connected so that gives us maximum of 3 mA per LED. 560
+Ohm resistor should be lowest value used here.
+
+
+OPERATION
+
+Device measures either voltage, current or power. Button named UNIT determines
+which value is measured. By default it measures voltage. Pressing a button
+changes measurement to current. Pressing button again changes measurement to
+voltage * current. Next press cycles back to measuring voltage.
+
+Current measurement type is indicated on LEDs V and A. LED V is on when voltage
+is measured. LED A is on when current is being measured. Both LEDs are on when
+power measurement is being done. 
+
+Button named NEXT selects which input/output is measured. It starts by measuring
+input and each press cycles it in order of IN, OUT1, OUT2, OUT3.
