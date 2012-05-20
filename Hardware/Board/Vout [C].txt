@@ -16,22 +16,23 @@ BOARD
 PARTS                              
 
   o C 100nF, X7R (0805)                                                         DK:490-4789-1-ND
-  - C3                                  Decoupling.
+  - C1                                  Voltage regulator.
+  - C2                                  Decoupling.
 
   o C 10uF /16V, tantalum (M3528)                                               DK:478-3874-1-ND
-  - C1 C2                               Voltage regulator.
+  - C3                                  Voltage regulator.
 
   o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
   - D1                                  Reverse polarity protection.
 
-  o DS 7-seg 1mA, 0.5" common anode                                             MO:TDSR1050
+  o DS 7-seg 1mA, 0.5" common anode                                             DK:LTS-4802BJR-H1
   - DS1-DS3                             7-segment display.
 
   o J MSTBVA 2,5/ 2-G-5,08                                                      DK:277-1150-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
-  o LED (0805)                                                                  DK:475-1415-1-ND
+  o LED (1206)                                                                  DK:475-1416-1-ND
   - LED1-LED4                           Measurement input selection.
   - LED5-LED6                           Measurement type selection.
   - LED7                                Power signal.
@@ -45,10 +46,10 @@ PARTS
   - R13-R20                             Cathode resistor (3.3V, 1.5mA).
   - R21                                 Power indicator (3.3V, 1.5mA).
 
-  o R 10K 1%, 0.125W (0805)                                                     DK:RMCF0805JT10K0CT-ND
-  - R22-R25                             High-side voltage divider (11:1 ratio).
+  o R 4K7 1%, 0.125W (0805)                                                     DK:RMCF0805FT4K70CT-ND
+  - R22-R25                             High-side voltage divider (5.7:1 ratio).
 
-  o S Switch, tactile SPST                                                      DK:679-2428-ND
+  o S Tactile SPST-NO                                                           DK:450-1647-ND
     S1 S2
 
   o U ZXCT1009, (SOT23)                                                         DK:ZXCT1009FCT-ND
@@ -78,7 +79,7 @@ Input and output use Phoenix MSTBVA 2,5/ 2-G-5,08 board connector. For suitable
 plug check it's datasheet. I personaly like MSTB 2,5/ 2-ST-5,08.
 
 These connectors use standard 0.2" spacing. If one desires, almost any connector
-can be used here.
+can be used here (e.g. MKDSN 1,5/ 2-5,08).
 
 
 BUTTONS
@@ -127,10 +128,10 @@ Reference voltage for ADC is taken from Vdd (3.3 V).
   ADCres = 1 / 1024 * 3.3
   ADCres = 0.003 V
 
-For voltage input that uses 1K and 10K resistors in voltage divider we need to
-calculate in ration of 11:1:
-  Vres = ADCres * 11
-  Vres = 0.035 V
+For voltage input that uses 1K and 4K7 resistors in voltage divider we need to
+calculate in ration of 5.7:1.
+  Vres = ADCres * 5.7
+  Vres = 0.017 V
 
 In case of current we 1 V representing 1 A of input current so there is no
 further adjustments:
@@ -160,7 +161,7 @@ if higher intensity is required. Do notice that both anode and cathode are
 connected to microcontroller output pin. That means that highest current
 required at any time should be restriced to 25mA (PIC limit). Common anode pin
 will have at most 8 LEDs connected so that gives us maximum of 3 mA per LED. 560
-Ohm resistor should be lowest value used here.
+Ohm resistor should be the lowest value used here.
 
 
 OPERATION
