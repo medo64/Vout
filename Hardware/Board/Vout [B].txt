@@ -39,7 +39,7 @@ PARTS
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
 
-  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805FT10K0CT-ND
+  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805FT1K00CT-ND
   - R5-R8                               Current sense monitor scaler.
   - R9-R12                              Low-side voltage divider.
   - R13-R20                             Cathode resistor (3.3V, 1.5mA).
