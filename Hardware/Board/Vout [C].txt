@@ -138,10 +138,10 @@ further adjustments:
   Ires = ADCres
   Ires = 0.003 A
 
-Of course, this leaves out other effects of ADC that have influence on precision
-and precision of other components (e.g. voltage divider, current monitor error
-or even voltage regulator precission). You can view this as absolutely best case
-scenario. Real life figures are bound to be a bit worse.
+Of course, this leaves out other effects of ADC that have influence on reading
+precision and precision of other components (e.g. voltage divider, current
+monitor error, voltage regulator precission, temperature...). You can view this
+as absolutely best case scenario. Real life figures are bound to be a bit worse.
 
 
 COMPONENT SELECTION
