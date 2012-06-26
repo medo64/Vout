@@ -156,7 +156,7 @@ Number of different resistors was kept to a minimum. Therefore same resistor
 type is used for both LEDs and voltage dividers. Since voltage divider resistor
 should be of known value 1% part was used.
 
-LEDs (R13-R21) might use higher tolerance part or they can even use 680 Ohm part
+LEDs (R13-R20) might use higher tolerance part or they can even use 680 Ohm part
 if higher intensity is required. Do notice that both anode and cathode are
 connected to microcontroller output pin. That means that highest current
 required at any time should be restriced to 25mA (PIC limit). Common anode pin
