@@ -1,17 +1,17 @@
 #define _XTAL_FREQ 4000000
 
-#define LED_A1 LATC1
-#define LED_A2 LATA4
-#define LED_A3 LATA3
+#define LED_A1 LATC4
+#define LED_A2 LATA3
+#define LED_A3 LATA4
 #define LED_A4 LATB5
-#define LED_C1 LATA5
-#define LED_C2 LATA7
-#define LED_C3 LATA6
-#define LED_C4 LATC4
+#define LED_C1 LATC3
+#define LED_C2 LATC0
+#define LED_C3 LATC1
+#define LED_C4 LATA6
 #define LED_C5 LATC5
 #define LED_C6 LATC2
-#define LED_C7 LATC3
-#define LED_C8 LATC0
+#define LED_C7 LATA5
+#define LED_C8 LATA7
 
 #define BUTTON_NEXT PORTBbits.RB7
 #define BUTTON_UNIT PORTBbits.RB6

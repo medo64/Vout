@@ -25,8 +25,8 @@ PARTS
   o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
   - D1                                  Reverse polarity protection.
 
-  o DS 7-seg 1mA, 0.5" common anode                                             DK:LTS-4802BJR-H1
-  - DS1-DS3                             7-segment display.
+  o DS LTC-4624JR, 3x 7-seg 1mA, 0.4" common anode                              DK:160-1544-5-ND
+  - DS1                                 7-segment display.
 
   o J MSTBVA 2,5/ 2-G-5,08                                                      DK:277-1150-ND
   - J1                                  Voltage input.
