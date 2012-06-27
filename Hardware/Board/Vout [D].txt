@@ -40,11 +40,13 @@ PARTS
   o R .1 1%, (2512) - CRA2512-FZ-R100ELF                                        DK:CRA2512-FZ-R100ELFCT-ND
   - R1-R4                               Current sense resistors.
 
-  o R 1K 1%, 0.125W (0805)                                                      DK:RMCF0805FT1K00CT-ND
-  - R5-R8                               Current sense monitor scaler.
-  - R9-R12                              Low-side voltage divider.
-  - R13-R20                             Cathode resistor (3.3V, 1.5mA).
-  - R21                                 Power indicator (3.3V, 1.5mA).
+  o R 680, 0.125W (0805)                                                        DK:RMCF0805FT680RCT-ND
+  - R5-R12                              Cathode resistor (3.3V, 1.9mA).
+
+  o R 1K 1%, 0.125W (0805)                                       	            DK:RMCF0805FT1K00CT-ND
+  - R13-R16                             Current sense monitor scaler.
+  - R17-R20                             Low-side voltage divider.
+  - R21                                 Power indicator (3.3V, 1.3mA).
 
   o R 4K7 1%, 0.125W (0805)                                                     DK:RMCF0805FT4K70CT-ND
   - R22-R25                             High-side voltage divider (5.7:1 ratio).
@@ -152,16 +154,13 @@ it. Best example of this would be voltage regulator which is overkill for this
 purpose. But it is something that I used in other project and I always have one
 in my component bin.
 
-Number of different resistors was kept to a minimum. Therefore same resistor
-type is used for both LEDs and voltage dividers. Since voltage divider resistor
-should be of known value 1% part was used.
+Value of LED resistors (R5-R12) is not really critical so higher tolerance can
+be used.
 
-LEDs (R13-R20) might use higher tolerance part or they can even use 680 Ohm part
-if higher intensity is required. Do notice that both anode and cathode are
-connected to microcontroller output pin. That means that highest current
-required at any time should be restriced to 25mA (PIC limit). Common anode pin
-will have at most 8 LEDs connected so that gives us maximum of 3 mA per LED. 560
-Ohm resistor should be the lowest value used here.
+Do notice that for display LED both anode and cathode are connected to
+microcontroller output pin. Since any pin of PIC can sink or source 25 mA and
+we have 8 LEDs connected to one pin (common anode) maximum current for each
+segment should be kept bellow 3 mA.
 
 
 OPERATION
