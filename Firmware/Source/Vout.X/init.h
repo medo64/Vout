@@ -1,18 +1,5 @@
 #define _XTAL_FREQ 4000000
 
-#define LED_A1 LATC1
-#define LED_A2 LATA4
-#define LED_A3 LATA3
-#define LED_A4 LATB5
-#define LED_C1 LATA5
-#define LED_C2 LATA7
-#define LED_C3 LATA6
-#define LED_C4 LATC4
-#define LED_C5 LATC5
-#define LED_C6 LATC2
-#define LED_C7 LATC3
-#define LED_C8 LATC0
-
 #define BUTTON_NEXT PORTBbits.RB7
 #define BUTTON_UNIT PORTBbits.RB6
 
@@ -35,9 +22,9 @@ void init(void) {
     //I/O
     ANSEL  = 0b00000111;
     ANSELH = 0b00011111;
-    TRISA  = 0b00000111;
-    TRISB  = 0b11011111;
-    TRISC  = 0b00000000;
+    TRISA  = 0b00011111;   // c2 c3 c1 a2 a3 v4 i4 v3
+    TRISB  = 0b11111111;   // b1 b2 a4 i3 i2 v2 i1 v1
+    TRISC  = 0b10001000;   // rx tx c5 c4 a1 c6 c7 c8
     LATA   = 0;
     LATB   = 0;
     LATC   = 0;
