@@ -14,7 +14,7 @@ unsigned int getAdc(unsigned char channel) {
 
 float getVoltage(unsigned char channel) {
     float reading = (float)getAdc(channel);
-    return round(reading * 3.3 / 1024.0 * 11.0); //11:1 ratio (10K:1K)
+    return round(reading * 3.3 / 1024.0 * 5.7); //5.7:1 ratio (4K7:1K)
 }
 
 float getCurrent(unsigned char channel) {
