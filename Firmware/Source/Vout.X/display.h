@@ -65,10 +65,10 @@ void displayValue(float value, char measureIndex, char measureUnit) {
         default: Display[3] = 0b00001111; break;
     }
     switch (measureUnit) {
-        case 0:  Display[3] ^= 0b01000000; break;
-        case 1:  Display[3] ^= 0b10000000; break;
-        case 2:  Display[3] ^= 0b11000000; break;
-        default: Display[3] ^= 0b11110000; break;
+        case 0:  Display[3] ^= 0b00100000; break;
+        case 1:  Display[3] ^= 0b01000000; break;
+        case 2:  Display[3] ^= 0b01100000; break;
+        default: Display[3] ^= 0b01110000; break;
     }
 }
 

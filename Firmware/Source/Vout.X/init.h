@@ -22,9 +22,9 @@ void init(void) {
     //I/O
     ANSEL  = 0b00000111;
     ANSELH = 0b00011111;
-    TRISA  = 0b00011111;   // c2 c3 c1 a2 a3 v4 i4 v3
+    TRISA  = 0b00011111;   // c8 c4 c7 a3 a2 v4 i4 v3
     TRISB  = 0b11111111;   // b1 b2 a4 i3 i2 v2 i1 v1
-    TRISC  = 0b10001000;   // rx tx c5 c4 a1 c6 c7 c8
+    TRISC  = 0b10010000;   // rx tx c5 a1 c1 c6 c3 c2
     LATA   = 0;
     LATB   = 0;
     LATC   = 0;
