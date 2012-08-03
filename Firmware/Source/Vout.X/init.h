@@ -3,13 +3,13 @@
 #define BUTTON_NEXT PORTBbits.RB7
 #define BUTTON_UNIT PORTBbits.RB6
 
-#define ADC_V1 12
-#define ADC_V2  8
+#define ADC_V1 11
+#define ADC_I1  9
+#define ADC_V2 10
+#define ADC_I2  8
 #define ADC_V3  0
+#define ADC_I3 12
 #define ADC_V4  2
-#define ADC_I1 10
-#define ADC_I2  9
-#define ADC_I3 11
 #define ADC_I4  1
 
 

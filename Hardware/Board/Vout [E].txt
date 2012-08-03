@@ -32,7 +32,7 @@ PARTS
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
-  o LED (1206)                                                                  DK:475-1416-1-ND
+  o LED (3mm)                                                                   DK:754-1218-ND
   - LED1-LED4                           Measurement input selection.
   - LED5-LED6                           Measurement type selection.
   - LED7                                Power signal.
