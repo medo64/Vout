@@ -6,8 +6,8 @@ unsigned int getAdc(unsigned char channel) {
     ADCON0 = (channel << 2); //Analog Channel Select bits
     ADON = 1; //ADC is enabled
     __delay_us(10); //to discharge holding cap if there was measurement just before (at least 5us)
-    GODONE = 1; //Setting this bit starts an A/D conversion cycle.
-    while(GODONE); //A/D conversion cycle in progress.
+    ADGO = 1; //Setting this bit starts an A/D conversion cycle.
+    while(ADGO); //A/D conversion cycle in progress.
     ADON = 0; //ADC is disabled and consumes no operating current
     return ADRES;
 }

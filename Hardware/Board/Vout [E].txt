@@ -60,7 +60,7 @@ PARTS
   o U LD1117DT33TR, (DPAK)                                                      DK:497-1236-1-ND
   - U5                                  Voltage regulator.
 
-  o U PIC18F23K20, (SSOP-28)                                                    DK:PIC18F23K20-I/SS-ND
+  o U PIC16F1516 (SSOP-28)                                                      DK:PIC16F1516-I/SS-ND
   - U6                                  Micro-controller.
 
 

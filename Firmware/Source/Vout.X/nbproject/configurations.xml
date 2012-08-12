@@ -29,11 +29,11 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC18F23K20</targetDevice>
+        <targetDevice>PIC16F1516</targetDevice>
         <targetHeader></targetHeader>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.00</languageToolchainVersion>
+        <languageToolchainVersion>1.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -41,16 +41,24 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <HI-TECH-COMP>
+      </HI-TECH-COMP>
+      <HI-TECH-LINK>
+      </HI-TECH-LINK>
       <PICkit3PlatformTool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="Freeze Peripherals" value="true"/>
@@ -61,6 +69,7 @@
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.eeprom" value="false"/>
+        <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="false"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.end" value="0x1fff"/>
@@ -68,6 +77,7 @@
         <property key="poweroptions.powerenable" value="true"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.pgmspeed" value="2"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveprogramrange.end" value="0x3f"/>
@@ -77,23 +87,6 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
-      <XC8-config-gcc>
-        <property key="opt-xc8-compiler-addqual" value="ignore"/>
-        <property key="opt-xc8-compiler-def" value=""/>
-        <property key="opt-xc8-compiler-ident_len" value="31"/>
-        <property key="opt-xc8-compiler-operation_mode" value="free"/>
-        <property key="opt-xc8-compiler-opt_asm" value="true"/>
-        <property key="opt-xc8-compiler-opt_asmfile" value="false"/>
-        <property key="opt-xc8-compiler-opt_debug" value="false"/>
-        <property key="opt-xc8-compiler-opt_speed" value="false"/>
-        <property key="opt-xc8-compiler-preproc_asm" value="false"/>
-        <property key="opt-xc8-compiler-strict_ansi" value="false"/>
-        <property key="opt-xc8-compiler-undef" value=""/>
-        <property key="opt-xc8-compiler-verbose" value="false"/>
-        <property key="opt-xc8-compiler-warn_level" value="0"/>
-        <property key="opt-xc8-compiler_include" value=""/>
-        <property key="opt-xc8-opt_set" value="_custom"/>
-      </XC8-config-gcc>
       <XC8-config-global>
         <property key="opt-xc8-global-double" value="32"/>
         <property key="opt-xc8-global-external_memory" value="wordwrite"/>
@@ -101,34 +94,6 @@
         <property key="opt-xc8-global-ram_ranges" value=""/>
         <property key="opt-xc8-global-rom_ranges" value=""/>
       </XC8-config-global>
-      <XC8-config-link>
-        <property key="opt-xc8-linker-addr0" value="false"/>
-        <property key="opt-xc8-linker-alt_osc_calib_val" value=""/>
-        <property key="opt-xc8-linker-backup_reset" value="false"/>
-        <property key="opt-xc8-linker-c_lib" value="true"/>
-        <property key="opt-xc8-linker-calib_osc" value="true"/>
-        <property key="opt-xc8-linker-checksum" value=""/>
-        <property key="opt-xc8-linker-clear_bss" value="true"/>
-        <property key="opt-xc8-linker-codeoffset" value=""/>
-        <property key="opt-xc8-linker-debugger" value="none"/>
-        <property key="opt-xc8-linker-default_config" value="true"/>
-        <property key="opt-xc8-linker-disp_class" value="false"/>
-        <property key="opt-xc8-linker-disp_hex" value="false"/>
-        <property key="opt-xc8-linker-disp_mem" value="true"/>
-        <property key="opt-xc8-linker-disp_psect" value="false"/>
-        <property key="opt-xc8-linker-errata" value=""/>
-        <property key="opt-xc8-linker-file" value="false"/>
-        <property key="opt-xc8-linker-fill" value=""/>
-        <property key="opt-xc8-linker-format_hex" value="false"/>
-        <property key="opt-xc8-linker-gen_html" value="false"/>
-        <property key="opt-xc8-linker-init_data" value="true"/>
-        <property key="opt-xc8-linker-link_startup" value="false"/>
-        <property key="opt-xc8-linker-managed_stack" value="false"/>
-        <property key="opt-xc8-linker-perif_lib" value="true"/>
-        <property key="opt-xc8-linker-serial" value=""/>
-        <property key="opt-xc8-linker-startup_as" value="false"/>
-        <property key="opt-xc8-linker-trace_type" value=""/>
-      </XC8-config-link>
     </conf>
   </confs>
 </configurationDescriptor>
