@@ -10,10 +10,10 @@ syntax: glob
 *.rar
 *.zip
 
-Firmware/Source/*/build/*
-Firmware/Source/*/disassembly/*
-Firmware/Source/*/dist/*
-Firmware/Source/*/funclist
+Firmware/Source/build/*
+Firmware/Source/disassembly/*
+Firmware/Source/dist/*
+Firmware/Source/funclist
 
 Hardware/Datasheets/*
 Hardware/Releases/*
