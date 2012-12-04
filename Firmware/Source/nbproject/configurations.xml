@@ -6,8 +6,8 @@
                    projectFiles="true">
       <itemPath>config.h</itemPath>
       <itemPath>display.h</itemPath>
-      <itemPath>init.h</itemPath>
       <itemPath>support.h</itemPath>
+      <itemPath>wait.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

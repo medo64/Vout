@@ -73,25 +73,27 @@ void displayValue(float value, char measureIndex, char measureUnit) {
 }
 
 void displaySplash() {
+    wait_adjust(56);
+
     Display[0] = 0b11111111; Display[1] = 0b11111111; Display[2] = 0b11111111; Display[3] = 0b11111111;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b01111111; Display[1] = 0b01111111; Display[2] = 0b01111111;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00111001; Display[1] = 0b00001001; Display[2] = 0b00001111; Display[3] = 0b00000000;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00000000; Display[1] = 0b00000000; Display[2] = 0b00000000;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00111001; Display[1] = 0b00001001; Display[2] = 0b00001111;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00111001; Display[1] = 0b00000000; Display[2] = 0b00001111;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b01110000; Display[1] = 0b00000000; Display[2] = 0b01000110;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b01000000; Display[1] = 0b01000000; Display[2] = 0b01000000;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00000000; Display[1] = 0b01000000; Display[2] = 0b00000000;
-    __delay_ms(100);
+    wait_ms(100);
     Display[0] = 0b00000000; Display[1] = 0b00000000; Display[2] = 0b00000000;
-    __delay_ms(100);
+    wait_ms(100);
     Display[3] = 0b01000001;
 }
