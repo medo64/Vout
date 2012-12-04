@@ -1,7 +1,8 @@
 #include <p18f23k20.h>
 #include "config.h"
 
-#include "init.h"
+#include "wait.h"
+
 #include "display.h"
 #include "support.h"
 
