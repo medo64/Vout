@@ -95,5 +95,4 @@ void displaySplash() {
     wait_ms(100);
     Display[0] = 0b00000000; Display[1] = 0b00000000; Display[2] = 0b00000000;
     wait_ms(100);
-    Display[3] = 0b01000001;
 }
