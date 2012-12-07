@@ -28,7 +28,7 @@ PARTS
   o DS LTC-4624JR, 3x 7-seg 1mA, 0.4" common anode                              DK:160-1544-5-ND
   - DS1                                 7-segment display.
 
-  o J MSTBVA 2,5/ 2-G-5,08                                                      DK:277-1150-ND
+  o J MSTBA 2,5/ 2-G-5,08                                                       DK:277-1106-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
@@ -76,11 +76,11 @@ Additionaly, if DIN mounting is needed, there is an option:
 
 CONNECTORS
 
-Input and output use Phoenix MSTBVA 2,5/ 2-G-5,08 board connector. For suitable
+Input and output use Phoenix MSTBA 2,5/ 2-G-5,08 board connector. For suitable
 plug check it's datasheet. I personaly like MSTB 2,5/ 2-ST-5,08.
 
 These connectors use standard 0.2" spacing. If one desires, almost any connector
-can be used here (e.g. MKDSN 1,5/ 2-5,08).
+can be used here (e.g. MSTBVA 2,5/ 2-G-5,08 or MKDSN 1,5/ 2-5,08).
 
 
 BUTTONS
