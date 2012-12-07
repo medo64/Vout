@@ -12,8 +12,8 @@ PARTS
   o J USB B                                                                     DK:ED2983-ND
   - J1
 
-  o LED (1206)                                                                  DK:475-1416-1-ND
-  - LED1                                Power present.
+  o DS LED (1206)                                                               DK:475-1416-1-ND
+  - DS1                                 Power present.
 
   o P IC 2,5/ 2-G-5,08 (1786404)                                                DK:277-5986-ND
   - P1
