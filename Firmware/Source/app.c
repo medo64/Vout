@@ -1,8 +1,9 @@
-#include <p18f23k20.h>
+#include <pic16f1516.h>
 #include "config.h"
 
 #include "wait.h"
 
+#include "settings.h"
 #include "display.h"
 #include "support.h"
 
@@ -13,8 +14,8 @@ volatile char DisplayIndex = 0;
 volatile char ButtonCounterNext = BUTTON_COUNTER_MAX;
 volatile char ButtonCounterUnit = BUTTON_COUNTER_MAX;
 
-char MeasureIndex = 0;
-char MeasureUnit = 0;
+char MeasureIndex;
+char MeasureUnit;
 
 
 #define bitSet(var, bitno)              ((var) |= 1UL << (bitno))
@@ -27,6 +28,10 @@ bit buttonCheck(void);
 
 void main(void) {
     init();
+
+    MeasureIndex = settings_getMeasureIndex();
+    MeasureUnit = settings_getMeasureUnit();
+
     displaySplash();
 
     float value = measure();
@@ -102,12 +107,14 @@ void interrupt isr(void) {
 bit buttonCheck() {
     if (ButtonCounterNext == 0) {
         MeasureIndex = (MeasureIndex + 1) % 4;
+        settings_setMeasureIndex(MeasureIndex);
         ButtonCounterNext = BUTTON_COUNTER_MAX_MAX;
         return 1;
     }
 
     if (ButtonCounterUnit == 0) {
         MeasureUnit = (MeasureUnit + 1) % 3;
+        settings_setMeasureUnit(MeasureUnit);
         ButtonCounterUnit = BUTTON_COUNTER_MAX_MAX;
         return 1;
     }
