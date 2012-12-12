@@ -5,7 +5,7 @@ float round(float value) {
 unsigned int getAdc(unsigned char channel) {
     ADCON0 = (channel << 2); //Analog Channel Select bits
     ADON = 1; //ADC is enabled
-    for (int i=0; i<5; i++) { asm("nop"); } ////to discharge holding cap if there was measurement just before (at least 5us) - this is 5us + cost of loop
+    for (int i=0; i<10; i++) { asm("nop"); } ////to discharge holding cap if there was measurement just before (at least 10us) - this is 5us + cost of loop
     ADGO = 1; //Setting this bit starts an A/D conversion cycle.
     while(ADGO); //A/D conversion cycle in progress.
     ADON = 0; //ADC is disabled and consumes no operating current
