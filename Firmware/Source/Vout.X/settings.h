@@ -51,7 +51,7 @@ void _settings_write(int index, unsigned char data) {
 
 #define _SETTINGS_INDEX_MEASURE_INDEX 0
 
-char  settings_getMeasureIndex() {
+unsigned char  settings_getMeasureIndex() {
     return _SETTINGS_FLASH[_SETTINGS_INDEX_MEASURE_INDEX] % 4;
 }
 
@@ -62,7 +62,7 @@ void settings_setMeasureIndex(char data) {
 
 #define _SETTINGS_INDEX_MEASURE_UNIT 1
 
-char  settings_getMeasureUnit() {
+unsigned char  settings_getMeasureUnit() {
     return _SETTINGS_FLASH[_SETTINGS_INDEX_MEASURE_UNIT] % 3;
 }
 

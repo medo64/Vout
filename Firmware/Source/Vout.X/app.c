@@ -1,11 +1,10 @@
 #include <p18f23k20.h>
 #include "config.h"
 
-#include "wait.h"
-
 #include "display.h"
 #include "support.h"
 #include "settings.h"
+#include "verify.h"
 
 #define BUTTON_COUNTER_MAX     48
 #define BUTTON_COUNTER_MAX_MAX 144
@@ -14,13 +13,18 @@ volatile char DisplayIndex = 0;
 volatile char ButtonCounterNext = BUTTON_COUNTER_MAX;
 volatile char ButtonCounterUnit = BUTTON_COUNTER_MAX;
 
-char MeasureIndex;
-char MeasureUnit;
+unsigned char MeasureIndex;
+unsigned char MeasureUnit;
 
 
 #define bitSet(var, bitno)              ((var) |= 1UL << (bitno))
 #define bitClear(var, bitno)            ((var) &= ~(1UL << (bitno)))
 #define cathodeBit(var, bitno, state)   if (state) { bitClear(var, bitno); } else { bitSet(var, bitno); }
+
+#define isButtonNextPressed (ButtonCounterNext == 0)
+#define isButtonUnitPressed (ButtonCounterUnit == 0)
+#define isButtonNextReleased (ButtonCounterNext == BUTTON_COUNTER_MAX)
+#define isButtonUnitReleased (ButtonCounterUnit == BUTTON_COUNTER_MAX)
 
 float measure(void);
 bit buttonCheck(void);
@@ -33,6 +37,11 @@ void main(void) {
     MeasureUnit = settings_getMeasureUnit();
 
     displaySplash();
+
+    if (isButtonNextPressed && isButtonUnitPressed) { //if both buttons are pressed start verify mode
+        verify();
+        while (!isButtonNextReleased && !isButtonUnitReleased);
+    }
 
     float value = measure();
     while (1) {
@@ -105,14 +114,14 @@ void interrupt isr(void) {
 }
 
 bit buttonCheck() {
-    if (ButtonCounterNext == 0) {
+    if (isButtonNextPressed) {
         MeasureIndex = (MeasureIndex + 1) % 4;
         settings_setMeasureIndex(MeasureIndex);
         ButtonCounterNext = BUTTON_COUNTER_MAX_MAX;
         return 1;
     }
 
-    if (ButtonCounterUnit == 0) {
+    if (isButtonUnitPressed) {
         MeasureUnit = (MeasureUnit + 1) % 3;
         settings_setMeasureUnit(MeasureUnit);
         ButtonCounterUnit = BUTTON_COUNTER_MAX_MAX;

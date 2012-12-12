@@ -7,8 +7,8 @@
       <itemPath>config.h</itemPath>
       <itemPath>display.h</itemPath>
       <itemPath>support.h</itemPath>
-      <itemPath>wait.h</itemPath>
       <itemPath>settings.h</itemPath>
+      <itemPath>verify.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
