@@ -1,4 +1,4 @@
-Vout-UsbB
+Vout UsbB
 ---------
 
 
@@ -12,14 +12,14 @@ PARTS
   o J USB B                                                                     DK:ED2983-ND
   - J1
 
-  o DS LED (1206)                                                               DK:475-1416-1-ND
+  o DS LED (0603)                                                               DK:475-2558-1-ND
   - DS1                                 Power present.
 
   o P IC 2,5/ 2-G-5,08 (1786404)                                                DK:277-5986-ND
   - P1
 
-  o R 150, 0.125W (0805)                                                        DK:RMCF0805FT150RCT-ND
+  o R 150, 0.125W (0603)                                                        DK:RMCF0603JT150RCT-ND
   - R1                                  Charger detection (<200Ω)
 
-  o R 1K, 0.125W (0805)                                       	                DK:RMCF0805FT1K00CT-ND
+  o R 1K, 0.125W (0603)                                       	                DK:RMCF0603JT1K00
   - R2                                  LED current limit.
