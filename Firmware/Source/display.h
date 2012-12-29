@@ -4,8 +4,8 @@
 
 volatile unsigned char Display[4] = { 0, 0, 0, 0 };
 
-unsigned char getSegments(unsigned char number);
 void displayValue(float value, unsigned char measureIndex, unsigned char measureUnit);
+void displayError(unsigned char errorNumber);
 
 
 #endif

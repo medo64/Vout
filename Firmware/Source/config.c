@@ -35,15 +35,13 @@ void init() {
     ADPREF0 = 0;
 
     //Timer
-    //T08BIT = 1;   //Timer0 is configured as an 8-bit timer/counter
     TMR0CS = 0; //Internal instruction cycle clock (CLKOUT)
     PSA  = 0;   //Timer0 prescaler is assigned. Timer0 clock input comes from prescaler output.
     PS2  = 0;   //1:8 prescale value
     PS1  = 1;
     PS0  = 0;
-    TMR0IE = 1;   //Enable TIMER0 Interrupt
-    //TMR0ON = 1;   //Enables Timer0
-    GIE    = 1;   //Enables all unmasked interrupts
+    TMR0IE = 1; //Enable TIMER0 Interrupt
+    GIE    = 1; //Enables all unmasked interrupts
 }
 
 

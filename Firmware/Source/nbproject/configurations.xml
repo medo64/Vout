@@ -9,6 +9,7 @@
       <itemPath>verify.h</itemPath>
       <itemPath>measure.h</itemPath>
       <itemPath>config.h</itemPath>
+      <itemPath>buttons.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,6 +24,7 @@
       <itemPath>measure.c</itemPath>
       <itemPath>settings.c</itemPath>
       <itemPath>config.c</itemPath>
+      <itemPath>buttons.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

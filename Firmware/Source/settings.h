@@ -2,11 +2,11 @@
 #define SETTINGS_H
 
 
-unsigned char  settings_getMeasureIndex();
-void settings_setMeasureIndex(char data);
+unsigned unsigned char  getMeasureIndex();
+void setMeasureIndex(unsigned char data);
 
-unsigned char  settings_getMeasureUnit();
-void settings_setMeasureUnit(char data);
+unsigned unsigned char  getMeasureUnit();
+void setMeasureUnit(unsigned char data);
 
 
 #endif

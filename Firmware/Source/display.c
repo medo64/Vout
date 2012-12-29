@@ -6,6 +6,7 @@ const unsigned char SEGMENTS_DIGIT[] = { 0b00111111, 0b00000110, 0b01011011, 0b0
                                          0b01111111, 0b01101111, 0b01110111, 0b01111100,
                                          0b00111001, 0b01011110, 0b01111001, 0b01110001 };
 
+
 unsigned char getSegments(unsigned char number) {
     if (number < 16) {
         return SEGMENTS_DIGIT[number];
@@ -13,6 +14,7 @@ unsigned char getSegments(unsigned char number) {
         return 0b00000000;
     }
 }
+
 
 void displayValue000(int value, unsigned char dotIndex) {
     unsigned char tempDisplay[3];
@@ -33,6 +35,8 @@ void displayValue000(int value, unsigned char dotIndex) {
     Display[1] = tempDisplay[1];
     Display[2] = tempDisplay[2];
 }
+
+
 
 void displayValue(float value, unsigned char measureIndex, unsigned char measureUnit) {
     if (value > 999) {
@@ -55,5 +59,22 @@ void displayValue(float value, unsigned char measureIndex, unsigned char measure
         case 1:  Display[3] ^= 0b01000000; break;
         case 2:  Display[3] ^= 0b01100000; break;
         default: Display[3] ^= 0b01110000; break;
+    }
+}
+
+
+void displayError(unsigned char errorNumber) {
+    if (errorNumber >= 10) {
+        Display[0] = getSegments(0x0E);
+        Display[1] = 0;
+        Display[2] = 0;
+    } else if (errorNumber == 0) {
+        Display[0] = 0;
+        Display[1] = getSegments(0);
+        Display[2] = 0;
+    } else {
+        Display[0] = getSegments(0x0E);
+        Display[1] = 0;
+        Display[2] = getSegments(errorNumber);
     }
 }

@@ -1,18 +1,14 @@
 #include <pic16f1516.h>
 
+#include "buttons.h"
 #include "config.h"
-#include "settings.h"
 #include "display.h"
 #include "measure.h"
+#include "settings.h"
 #include "verify.h"
 
 
-#define BUTTON_COUNTER_MAX     48
-#define BUTTON_COUNTER_MAX_MAX 144
-
 volatile char DisplayIndex = 0;
-volatile char ButtonCounterNext = BUTTON_COUNTER_MAX;
-volatile char ButtonCounterUnit = BUTTON_COUNTER_MAX;
 
 unsigned char MeasureIndex;
 unsigned char MeasureUnit;
@@ -22,38 +18,44 @@ unsigned char MeasureUnit;
 #define bitClear(var, bitno)            ((var) &= ~(1UL << (bitno)))
 #define cathodeBit(var, bitno, state)   if (state) { bitClear(var, bitno); } else { bitSet(var, bitno); }
 
-#define isButtonNextPressed (ButtonCounterNext == 0)
-#define isButtonUnitPressed (ButtonCounterUnit == 0)
-#define isButtonNextReleased (ButtonCounterNext == BUTTON_COUNTER_MAX)
-#define isButtonUnitReleased (ButtonCounterUnit == BUTTON_COUNTER_MAX)
-
-float measure(void);
-bit buttonCheck(void);
+float measure();
 
 
 void main(void) {
     init();
 
-    MeasureIndex = settings_getMeasureIndex();
-    MeasureUnit = settings_getMeasureUnit();
+    MeasureIndex = getMeasureIndex();
+    MeasureUnit = getMeasureUnit();
 
     splash();
 
-    if (isButtonNextPressed && isButtonUnitPressed) { //if both buttons are pressed start verify mode
+    if (isButtonNextPressed()) {
         verify();
-        while (!isButtonNextReleased && !isButtonUnitReleased);
+        while (!isButtonNextReleased() && !isButtonUnitReleased()); //wait both buttons to be released
+    } else if (isButtonUnitPressed()) { //calibrate 0
+        while (!isButtonNextReleased() && !isButtonUnitReleased()); //wait both buttons to be released
     }
 
     float value = measure();
     while (1) {
         displayValue(value, MeasureIndex, MeasureUnit);
         for (int i=0; i<10; i++) {
-            float newValue = measure();
-            value = value + (newValue - value) * 0.23; //to smooth it a little
-            value = round(value);
-            if (buttonCheck()) {
+            if (isButtonNextPressed()) {
+                buttonNextReset();
+                MeasureIndex = (MeasureIndex + 1) % 4;
+                setMeasureIndex(MeasureIndex);
                 value = measure();
                 break;
+            } else if (isButtonUnitPressed()) {
+                buttonUnitReset();
+                MeasureUnit = (MeasureUnit + 1) % 3;
+                setMeasureUnit(MeasureUnit);
+                value = measure();
+                break;
+            } else {
+                float newValue = measure();
+                value = value + (newValue - value) * 0.23; //to smooth it a little
+                value = round(value);
             }
         }
     }
@@ -100,36 +102,18 @@ void interrupt isr(void) {
         DisplayIndex = (DisplayIndex + 1) % 4;
 
         if (BUTTON_NEXT == 0) {
-            if (ButtonCounterNext > 0) { ButtonCounterNext -= 1; }
+            buttonNextDetect();
         } else {
-            ButtonCounterNext = BUTTON_COUNTER_MAX;
+            buttonNextReset();
         }
         if (BUTTON_UNIT == 0) {
-            if (ButtonCounterUnit > 0) { ButtonCounterUnit -= 1; }
+            buttonUnitDetect();
         } else {
-            ButtonCounterUnit = BUTTON_COUNTER_MAX;
+            buttonUnitReset();
         }
 
         TMR0IF = 0; //clear flag
     }
-}
-
-bit buttonCheck() {
-    if (isButtonNextPressed) {
-        MeasureIndex = (MeasureIndex + 1) % 4;
-        settings_setMeasureIndex(MeasureIndex);
-        ButtonCounterNext = BUTTON_COUNTER_MAX_MAX;
-        return 1;
-    }
-
-    if (isButtonUnitPressed) {
-        MeasureUnit = (MeasureUnit + 1) % 3;
-        settings_setMeasureUnit(MeasureUnit);
-        ButtonCounterUnit = BUTTON_COUNTER_MAX_MAX;
-        return 1;
-    }
-
-    return 0;
 }
 
 float measure() {
