@@ -34,7 +34,8 @@
 
 void init() {
     //Oscillator
-    IRCF2 = 1;   //4 MHz
+    IRCF3 = 1;   //4 MHz
+    IRCF2 = 1;
     IRCF1 = 0;
     IRCF0 = 1;
 
@@ -50,7 +51,7 @@ void init() {
     LATC   = 0;
 
     //pull-up for buttons
-    WPUE = 0;            //PORTB pull-ups are enabled provided that the pin is an input and the corresponding WPUB bit is set.
+    nWPUEN = 0;          //PORTB pull-ups are enabled provided that the pin is an input and the corresponding WPUB bit is set.
     WPUB = 0b11000000;   //RB6, RB7
 
     //ADC
@@ -63,7 +64,7 @@ void init() {
 
     //Timer
     //T08BIT = 1;   //Timer0 is configured as an 8-bit timer/counter
-    T0CS = 0;   //Internal instruction cycle clock (CLKOUT)
+    TMR0CS = 0; //Internal instruction cycle clock (CLKOUT)
     PSA  = 0;   //Timer0 prescaler is assigned. Timer0 clock input comes from prescaler output.
     PS2  = 0;   //1:8 prescale value
     PS1  = 1;
