@@ -1,10 +1,11 @@
 #include <pic16f1516.h>
-#include "config.h"
 
+#include "config.h"
 #include "settings.h"
 #include "display.h"
-#include "support.h"
+#include "measure.h"
 #include "verify.h"
+
 
 #define BUTTON_COUNTER_MAX     48
 #define BUTTON_COUNTER_MAX_MAX 144
@@ -36,7 +37,7 @@ void main(void) {
     MeasureIndex = settings_getMeasureIndex();
     MeasureUnit = settings_getMeasureUnit();
 
-    displaySplash();
+    splash();
 
     if (isButtonNextPressed && isButtonUnitPressed) { //if both buttons are pressed start verify mode
         verify();
