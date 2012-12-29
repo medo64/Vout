@@ -63,18 +63,40 @@ void displayValue(float value, unsigned char measureIndex, unsigned char measure
 }
 
 
-void displayError(unsigned char errorNumber) {
+void displayVerifyError(unsigned char errorNumber) {
     if (errorNumber >= 10) {
         Display[0] = getSegments(0x0E);
         Display[1] = 0;
         Display[2] = 0;
+        Display[3] = 0;
     } else if (errorNumber == 0) {
         Display[0] = 0;
         Display[1] = getSegments(0);
         Display[2] = 0;
+        Display[3] = 0;
     } else {
         Display[0] = getSegments(0x0E);
         Display[1] = 0;
         Display[2] = getSegments(errorNumber);
+        Display[3] = 0;
+    }
+}
+
+void displayCalibrateError(unsigned char errorNumber) {
+    if (errorNumber >= 10) {
+        Display[0] = getSegments(0x0C);
+        Display[1] = 0;
+        Display[2] = 0;
+        Display[3] = 0;
+    } else if (errorNumber == 0) {
+        Display[0] = 0;
+        Display[1] = getSegments(0x0C);
+        Display[2] = 0;
+        Display[3] = 0;
+    } else {
+        Display[0] = getSegments(0x0C);
+        Display[1] = 0;
+        Display[2] = getSegments(errorNumber);
+        Display[3] = 0;
     }
 }

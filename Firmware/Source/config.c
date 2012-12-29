@@ -1,5 +1,5 @@
 #include "config.h"
-#include "pic.h"
+#include <pic.h>
 
 #include "display.h"
 
@@ -47,5 +47,5 @@ void init() {
 
 void splash() {
     Display[0] = 0b11111111; Display[1] = 0b11111111; Display[2] = 0b11111111; Display[3] = 0b11111111;
-    for (int i=0; i<25000; i++) { asm("nop"); } //100ms (25000 nops + interrupt handling)
+    __delay_ms(100);
 }

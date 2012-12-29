@@ -2,16 +2,16 @@
 #define	BUTTONS_H
 
 
+bit buttonNextCheck();
+bit buttonUnitCheck();
+
+void buttonNextReset();
+void buttonUnitReset();
+
 bit isButtonNextPressed();
 bit isButtonUnitPressed();
 
 bit isButtonNextReleased();
 bit isButtonUnitReleased();
-
-void buttonNextDetect();
-void buttonUnitDetect();
-
-void buttonNextReset();
-void buttonUnitReset();
 
 #endif

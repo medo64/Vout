@@ -2,6 +2,7 @@
 #include "pic.h"
 
 #include "config.h"
+#include "settings.h"
 
 
 const float VREF = 3.3;
@@ -15,7 +16,7 @@ float round(float value) {
 }
 
 
-unsigned int getAdc(unsigned char channel) {
+unsigned int getRawAdc(unsigned char channel) {
     ADCON0 = (channel << 2); //Analog Channel Select bits
     ADON = 1; //ADC is enabled
     __delay_us(10); //to discharge holding cap if there was measurement just before (at least 10us)
@@ -26,14 +27,26 @@ unsigned int getAdc(unsigned char channel) {
 }
 
 
+float getRawVoltage(unsigned char channel) {
+    float reading = (float)getRawAdc(channel);
+    return round(reading * VREF / ADC_N * RATIO_VOLTAGE);
+}
+
+
+float getRawCurrent(unsigned char channel) {
+    float reading = (float)getRawAdc(channel);
+    return round(reading * VREF / ADC_N * RATIO_CURRENT);
+}
+
 
 float getVoltage(unsigned char channel) {
-    float reading = (float)getAdc(channel);
+    float reading = (float)getRawAdc(channel);
     return round(reading * VREF / ADC_N * RATIO_VOLTAGE);
 }
 
 
 float getCurrent(unsigned char channel) {
-    float reading = (float)getAdc(channel);
+    float reading = (float)(getRawAdc(channel) + getCurrentAdcOffset(channel));
+    if (reading < 0) { reading = 0; }
     return round(reading * VREF / ADC_N * RATIO_CURRENT);
 }

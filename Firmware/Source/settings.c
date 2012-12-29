@@ -1,17 +1,22 @@
 #include "settings.h"
-
 #include "pic.h"
 
+#include "config.h"
 
-#define FLASH_RAW { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } //reserving space because erase block is block 32-word
-#define FLASH_RAW_LOCATION 0x0400
+
+#define FLASH_RAW { 0, 0,  255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } //reserving space because erase block is block 32-word
+#define FLASH_RAW_LOCATION 0x1800
 #define FLASH_RAW_COUNT 32
 
-#define STORE_EMPTY { 0, 0 }
-#define STORE_COUNT 2
+#define STORE_EMPTY { 0, 0,  0, 0, 0, 0 }
+#define STORE_COUNT 6
 
-#define OFFSET_MEASURE_INDEX 0
-#define OFFSET_MEASURE_UNIT  1
+#define OFFSET_MEASURE_INDEX         0
+#define OFFSET_MEASURE_UNIT          1
+#define OFFSET_CALIBRATION_CURRENT_1 2
+#define OFFSET_CALIBRATION_CURRENT_2 3
+#define OFFSET_CALIBRATION_CURRENT_3 4
+#define OFFSET_CALIBRATION_CURRENT_4 5
 
 const unsigned char FLASH[] @ FLASH_RAW_LOCATION = FLASH_RAW;
 
@@ -70,8 +75,8 @@ unsigned char  getMeasureIndex() {
 }
 
 
-void setMeasureIndex(unsigned char data) {
-    settings_write(OFFSET_MEASURE_INDEX, data);
+void setMeasureIndex(unsigned char value) {
+    settings_write(OFFSET_MEASURE_INDEX, value);
 }
 
 
@@ -80,6 +85,29 @@ unsigned char  getMeasureUnit() {
 }
 
 
-void setMeasureUnit(unsigned char data) {
-    settings_write(OFFSET_MEASURE_UNIT, data);
+void setMeasureUnit(unsigned char value) {
+    settings_write(OFFSET_MEASURE_UNIT, value);
+}
+
+
+signed char getCurrentAdcOffset(unsigned char channel) {
+    signed char value = 0;
+    switch (channel) {
+        case ADC_I1: value = (signed char)FLASH[OFFSET_CALIBRATION_CURRENT_1]; break;
+        case ADC_I2: value = (signed char)FLASH[OFFSET_CALIBRATION_CURRENT_2]; break;
+        case ADC_I3: value = (signed char)FLASH[OFFSET_CALIBRATION_CURRENT_3]; break;
+        case ADC_I4: value = (signed char)FLASH[OFFSET_CALIBRATION_CURRENT_4]; break;
+        default: return 0;
+    }
+    return value;
+}
+
+
+void setCurrentAdcOffset(unsigned char channel, signed char value) {
+    switch (channel) {
+        case ADC_I1: settings_write(OFFSET_CALIBRATION_CURRENT_1, value); break;
+        case ADC_I2: settings_write(OFFSET_CALIBRATION_CURRENT_2, value); break;
+        case ADC_I3: settings_write(OFFSET_CALIBRATION_CURRENT_3, value); break;
+        case ADC_I4: settings_write(OFFSET_CALIBRATION_CURRENT_4, value); break;
+    }
 }

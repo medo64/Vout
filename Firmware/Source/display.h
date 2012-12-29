@@ -5,7 +5,8 @@
 volatile unsigned char Display[4] = { 0, 0, 0, 0 };
 
 void displayValue(float value, unsigned char measureIndex, unsigned char measureUnit);
-void displayError(unsigned char errorNumber);
+void displayVerifyError(unsigned char errorNumber);
+void displayCalibrateError(unsigned char errorNumber);
 
 
 #endif

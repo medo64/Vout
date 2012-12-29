@@ -1,6 +1,8 @@
 #include <pic16f1516.h>
+#include <pic.h>
 
 #include "buttons.h"
+#include "calibrate.h"
 #include "config.h"
 #include "display.h"
 #include "measure.h"
@@ -10,13 +12,9 @@
 
 volatile char DisplayIndex = 0;
 
+
 unsigned char MeasureIndex;
 unsigned char MeasureUnit;
-
-
-#define bitSet(var, bitno)              ((var) |= 1UL << (bitno))
-#define bitClear(var, bitno)            ((var) &= ~(1UL << (bitno)))
-#define cathodeBit(var, bitno, state)   if (state) { bitClear(var, bitno); } else { bitSet(var, bitno); }
 
 float measure();
 
@@ -29,11 +27,20 @@ void main(void) {
 
     splash();
 
-    if (isButtonNextPressed()) {
+    if (buttonNextCheck()) {
         verify();
-        while (!isButtonNextReleased() && !isButtonUnitReleased()); //wait both buttons to be released
-    } else if (isButtonUnitPressed()) { //calibrate 0
-        while (!isButtonNextReleased() && !isButtonUnitReleased()); //wait both buttons to be released
+        __delay_ms(1000);
+        while (buttonNextCheck()); //wait button to be released
+        while (!isButtonNextPressed() && !isButtonUnitPressed()); //wait for any button
+        buttonNextReset();
+        buttonUnitReset();
+    } else if (buttonUnitCheck()) { //calibrate 0
+        calibrate();
+        __delay_ms(1000);
+        while (buttonUnitCheck()); //wait button to be released
+        while (!isButtonNextPressed() && !isButtonUnitPressed()); //wait for any button
+        buttonNextReset();
+        buttonUnitReset();
     }
 
     float value = measure();
@@ -60,6 +67,11 @@ void main(void) {
         }
     }
 }
+
+
+#define bitSet(var, bitno)              ((var) |= 1UL << (bitno))
+#define bitClear(var, bitno)            ((var) &= ~(1UL << (bitno)))
+#define cathodeBit(var, bitno, state)   if (state) { bitClear(var, bitno); } else { bitSet(var, bitno); }
 
 void interrupt isr(void) {
     if(TMR0IE && TMR0IF) { //if enabled and triggered
@@ -101,20 +113,13 @@ void interrupt isr(void) {
 
         DisplayIndex = (DisplayIndex + 1) % 4;
 
-        if (BUTTON_NEXT == 0) {
-            buttonNextDetect();
-        } else {
-            buttonNextReset();
-        }
-        if (BUTTON_UNIT == 0) {
-            buttonUnitDetect();
-        } else {
-            buttonUnitReset();
-        }
+        buttonNextCheck();
+        buttonUnitCheck();
 
         TMR0IF = 0; //clear flag
     }
 }
+
 
 float measure() {
     switch (MeasureIndex) {
