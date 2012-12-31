@@ -25,13 +25,12 @@ PARTS
   o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
   - D1                                  Reverse polarity protection.
 
-  o DS LED (3mm)                                                                DK:754-1218-ND
+  o DS LED (3mm)                                                                DK:754-1256-ND
   - DS1 DS2 DS3 DS4                     Measurement input selection.
   - DS5 DS6                             Measurement type selection.
-  - DS7                                 Power signal.
 
   o DS LTC-4624JR, 3x 7-seg 1mA, 0.4" common anode                              DK:160-1544-5-ND
-  - DS8                                 7-segment display.
+  - DS7                                 7-segment display.
 
   o J MSTBA 2,5/ 2-G-5,08                                                       DK:277-1106-ND
   - J1                                  Voltage input.
@@ -46,10 +45,9 @@ PARTS
   o R 1K 1%, 0.125W (0805)                                       	            DK:RMCF0805FT1K00CT-ND
   - R13-R16                             Current sense monitor scaler.
   - R17-R20                             Low-side voltage divider.
-  - R21                                 Power indicator (3.3V, 1.3mA).
 
   o R 4K7 1%, 0.125W (0805)                                                     DK:RMCF0805FT4K70CT-ND
-  - R22-R25                             High-side voltage divider (5.7:1 ratio).
+  - R21-R24                             High-side voltage divider (5.7:1 ratio).
 
   o S Tactile 6x6mm, SPST-NO                                                    DK:450-1647-ND
     S1 S2
@@ -98,9 +96,9 @@ microcontroller. There is no protection for outputs. Reverse voltage state
 lasting more than few seconds might damage device regardless.
 
 If unsure of input voltage polarity, one can connect wires either way and watch
-for 3.3V LED to light up (should be instantaneous). If 3.3V does not light up
-disconnect input immediately and swap the wires. If 3.3V LED lights up, polarity
-is correct and outputs can be connected at this time. 
+whether it works (should be instantaneous). If it does not light up disconnect
+input immediately and swap the wires. If 3.3V LED lights up, polarity is
+correct and outputs can be connected at this time. 
 
 
 CURRENT SENSING
