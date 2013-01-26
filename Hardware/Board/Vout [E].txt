@@ -71,6 +71,10 @@ If case is desired, board should fit perfectly within Phoenix Contact module:
 Additionaly, if DIN mounting is needed, there is an option:
   o PhoenixContact 2970031 (UMK-FE)                                             DK:2970031-ND
 
+In that case of Phoenix board you might want to swap connectors for vertical
+ones in order to avoid cutting of side element:
+  o MSTBVA 2,5/ 2-G-5,08                                                        DK:277-1150-ND
+
 
 CONNECTORS
 
