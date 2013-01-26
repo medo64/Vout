@@ -1,4 +1,5 @@
 #include "calibrate.h"
+#include <pic.h>
 
 #include "config.h"
 #include "display.h"
@@ -7,6 +8,8 @@
 
 
 void calibrate() {
+    __delay_ms(500);
+
     unsigned int i2 = getRawAdc(ADC_I2);
     unsigned int i3 = getRawAdc(ADC_I3);
     unsigned int i4 = getRawAdc(ADC_I4);
