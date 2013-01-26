@@ -85,6 +85,28 @@ These connectors use standard 0.2" spacing. If one desires, almost any connector
 can be used here (e.g. MSTBVA 2,5/ 2-G-5,08 or MKDSN 1,5/ 2-5,08).
 
 
+RECOMMENDED SOLDERING ORDER
+
+  o Bottom
+    - U1
+    - U2 U3 U4 U5
+    - R13 R14 R15 R16
+    - R17 R18 R19 R20
+    - R21 R22 R23 R24
+    - R1 R2 R3 R4
+    - R5 R6 R7 R8 R9 R10 R11 R12
+    - D1
+    - VR1
+    - C1 C2
+    - C3
+
+  o Top
+    - DS1 DS2 DS3 DS4 DS5 DS6
+    - S1 S2
+    - DS7
+    - J1 J2 J3 J4
+
+
 BUTTONS
 
 Buttons are directly connected to PIC and internal pull-up is configured.
