@@ -32,7 +32,7 @@ PARTS
   o DS LTC-4624JR, 3x 7-seg 1mA, 0.4" common anode                              DK:160-1544-5-ND
   - DS7                                 7-segment display.
 
-  o J MSTBA 2,5/ 2-G-5,08                                                       DK:277-1106-ND
+  o J MSTBVA 2,5/ 2-G-5,08                                                      DK:277-1150-ND
   - J1                                  Voltage input.
   - J2-J4                               Voltage output.
 
@@ -71,18 +71,18 @@ If case is desired, board should fit perfectly within Phoenix Contact module:
 Additionaly, if DIN mounting is needed, there is an option:
   o PhoenixContact 2970031 (UMK-FE)                                             DK:2970031-ND
 
-In that case of Phoenix board you might want to swap connectors for vertical
-ones in order to avoid cutting of side element:
-  o MSTBVA 2,5/ 2-G-5,08                                                        DK:277-1150-ND
+If you wish to have horizontal connectors than you can use:
+  o MSTBA 2,5/ 2-G-5,08                                                         DK:277-1106-ND
+Downside is that it no longer fits into Phoenix enclosure.
 
 
 CONNECTORS
 
-Input and output use Phoenix MSTBA 2,5/ 2-G-5,08 board connector. For suitable
+Input and output use Phoenix MSTBVA 2,5/ 2-G-5,08 board connector. For suitable
 plug check it's datasheet. I personaly like MSTB 2,5/ 2-ST-5,08.
 
 These connectors use standard 0.2" spacing. If one desires, almost any connector
-can be used here (e.g. MSTBVA 2,5/ 2-G-5,08 or MKDSN 1,5/ 2-5,08).
+can be used here (e.g. MSTBA 2,5/ 2-G-5,08 or MKDSN 1,5/ 2-5,08).
 
 
 RECOMMENDED SOLDERING ORDER
