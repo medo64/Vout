@@ -19,7 +19,7 @@ PARTS
   - C1                                  Voltage regulator.
   - C2                                  Decoupling.
 
-  o C 10uF /16V, tantalum (M3528)                                               DK:478-3874-1-ND
+  o C 4.7uF /16V, tantalum (M3528)                                              DK:718-1148-1-ND
   - C3                                  Voltage regulator.
 
   o D STPS2L60A (SMA)                                                           DK:497-2461-1-ND
